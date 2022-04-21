@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
+import Home from "../pages/Home/home";
+import Login from "../pages/Login/login";
+import Register from "../pages/Register/register";
+
 export default function Routes() {
 
     const [authenticated, setAuthenticated] = useState(false)
@@ -17,10 +21,13 @@ export default function Routes() {
 
         <Switch>
             <Route exact path='/'>
-
+                <Login authenticated={authenticated} setAuthenticated={setAuthenticated}/>
             </Route>
-            <Route exact path=''>
-
+            <Route exact path='/register'>
+                <Register />
+            </Route>
+            <Route exact path='/home'>
+                <Home authenticated={authenticated} setAuthenticated={setAuthenticated}/>
             </Route>
         </Switch>
 
