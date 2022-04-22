@@ -90,12 +90,13 @@ export const Topo = styled.div`
 `
 
 export const Main = styled.div`
- padding: 0 180px;
  width: 81%;
  display: flex;
  flex-wrap: wrap;
+ flex-direction: column;
  background: var(--gray3);
  border-radius: 4px;
  margin: auto;
  margin-top: 20px;
+ padding: 16px;
 `

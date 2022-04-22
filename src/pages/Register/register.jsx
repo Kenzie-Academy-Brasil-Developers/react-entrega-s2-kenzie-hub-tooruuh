@@ -47,7 +47,6 @@ export default function Register({ authenticated }) {
     course_module,
   }) => {
     const user = { name, email, password, bio, contact, course_module };
-    console.log(course_module);
     API.post("/users", user)
       .then((response) => {
         console.log(response);
