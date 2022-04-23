@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 38px;
 `;
 
 export const Navbar = styled.div`
@@ -12,7 +11,19 @@ export const Navbar = styled.div`
   justify-content: space-between;
   flex: 1;
   margin-top: 32px;
-  padding: 0 120px;
+  padding: 0 180px;
+
+  @media(max-width: 1100px){
+    padding: 0px 100px;
+  }
+
+  @media(max-width: 700px){
+    padding: 0px 30px;
+  }
+
+  @media(max-width: 370px){
+    padding: 0px 30px;
+  }
 
   button {  
     max-width: 100px;
@@ -22,6 +33,7 @@ export const Navbar = styled.div`
   }
   button:hover{
       background: var(--gray1);
+      border-color: var(--gray1);
   }
 `;
 
@@ -33,7 +45,33 @@ export const Header = styled.div`
   flex-wrap: wrap;
   flex: 1;
   margin: 32px 0 32px 0;
-  padding: 0 120px;
+  padding: 0 180px;
+
+  @media(max-width: 1100px){
+    padding: 0px 100px;
+  }
+
+  @media(max-width: 700px){
+    padding: 0px 30px;
+  }
+
+  @media(max-width: 450px){
+    padding: 0px 30px;
+    width: 46%;
+
+    h4{
+      margin-top: 16px;
+    }
+  }
+
+  @media(max-width: 370px){
+    padding: 0px 30px;
+    width: 50%;
+
+    h4{
+      margin-top: 16px;
+    }
+  }
 
   h1 {
     color: var(--gray0);
@@ -57,10 +95,8 @@ export const Linha = styled.span`
 `
 
 export const TecnologiasContainer = styled.div`
- padding: 0 38px;
- margin-top: 32px;
  display: flex;
- flex-wrap: wrap;
+ margin-top: 20px;
 
  button {  
     max-width: 100px;
@@ -70,6 +106,7 @@ export const TecnologiasContainer = styled.div`
   }
   button:hover{
       background: var(--gray1);
+      border-color: var(--gray1);
   }
 `
 
@@ -77,11 +114,22 @@ export const Topo = styled.div`
  display: flex;
  justify-content: space-between;
  align-items: center;
- padding: 0 75px;
+ padding: 0 180px;
  margin-bottom: 20px;
  display: flex;
- flex-wrap: wrap;
  width: 100%;
+
+ @media(max-width: 1100px){
+    padding: 0px 100px;
+  }
+
+ @media(max-width: 700px){
+    padding: 0px 30px;
+  }
+
+  @media(max-width: 450px){
+    padding: 0px 20px;
+  }
 
  > button {
     width: 40px;
@@ -99,4 +147,20 @@ export const Main = styled.div`
  margin: auto;
  margin-top: 20px;
  padding: 16px;
+
+ @media(max-width: 700px){
+    width: 91%
+  }
+`
+
+export const NoCard = styled.div`
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+
+  svg {
+    margin-right: 16px;
+  }
 `

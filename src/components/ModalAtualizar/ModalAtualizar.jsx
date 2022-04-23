@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,24 +7,24 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Button from "../Button/Button";
 import { ModalContainer, Content, Topo, FormContainer } from "./styles";
+import "../ModalAtualizar/modal.css";
 
 import Input from "../Input/input";
 import Select from "../Select/Select";
 
-export default function ModalAtualizar({ setModalStatusAtualizar }) {
+export default function ModalAtualizar({
+  setModalStatusAtualizar,
+  onClick,
+  nomeMateria,
+  materiaId
+}) {
   const [statusCriar] = useState(["Iniciante", "Intermediário", "Avançado"]);
 
   const [token] = useState(
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
 
-  const [usuario] = useState(
-      JSON.parse(localStorage.getItem("@KenzieHub:user")) || ""
-      );
-      console.log(usuario);
-      
-      const schema = yup.object().shape({
-          title: yup.string().required("Campo obrigatório!"),
+  const schema = yup.object().shape({
     status: yup.string().required("Campo obrigatório!"),
   });
 
@@ -36,17 +36,25 @@ export default function ModalAtualizar({ setModalStatusAtualizar }) {
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+
+  },[])
 
   const onSubmitFunction = (data) => {
-    API.post("/users/techs", data, {
+
+    API.put(`/users/techs/${materiaId}`, 
+    {
+      status: data.status
+    }, 
+    {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
-        toast.success("Tecnologia criada com sucesso");
         setModalStatusAtualizar(false);
+        toast.success("Tecnologia atualizada com sucesso");
       })
       .catch((err) => {
-        toast.error("Error ao criar nova tecnologia");
+        toast.error("Error ao atualizar tecnologia");
       });
   };
 
@@ -55,19 +63,14 @@ export default function ModalAtualizar({ setModalStatusAtualizar }) {
       <Content>
         <Topo>
           <h1>Tecnologia Detalhes</h1>
-          <Button
-            onClick={() => {
-              setModalStatusAtualizar(false);
-            }}
-          >
-            X
-          </Button>
+          <Button onClick={() => setModalStatusAtualizar(false)}>X</Button>
         </Topo>
 
         <FormContainer onSubmit={handleSubmit(onSubmitFunction)}>
           <Input
+            id="modal"
             label="Nome do projeto"
-            placeholder="Material UI"
+            placeholder={nomeMateria}
             register={register}
             name="title"
             error={errors.title?.message}
@@ -83,10 +86,12 @@ export default function ModalAtualizar({ setModalStatusAtualizar }) {
               return <option key={index}>{status}</option>;
             })}
           </Select>
+
           <section>
             <Button type="submit">Salvar alterações</Button>
-            <Button id='excluir'>Excluir</Button>
-            
+            <Button id="excluir" onClick={onClick}>
+              Excluir
+            </Button>
           </section>
         </FormContainer>
       </Content>

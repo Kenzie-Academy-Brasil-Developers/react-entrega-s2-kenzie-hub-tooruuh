@@ -1,0 +1,10 @@
+#excluir {
+  background: var(--gray2);
+}
+#excluir:hover {
+  background: var(--gray1);
+}
+
+#modal {
+  pointer-events: none;
+}

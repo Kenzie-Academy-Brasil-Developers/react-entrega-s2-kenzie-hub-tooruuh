@@ -24,7 +24,7 @@ export default function Routes() {
                 <Login authenticated={authenticated} setAuthenticated={setAuthenticated}/>
             </Route>
             <Route exact path='/register'>
-                <Register />
+                <Register authenticated={authenticated}/>
             </Route>
             <Route exact path='/home'>
                 <Home authenticated={authenticated} setAuthenticated={setAuthenticated}/>

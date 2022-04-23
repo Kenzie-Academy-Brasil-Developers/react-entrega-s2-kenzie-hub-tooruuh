@@ -1,20 +1,29 @@
 import { Redirect } from "react-router-dom";
-import { Container, Navbar, Header, Linha, TecnologiasContainer, Topo, Main } from "./styles";
-import { useState } from "react";
+import { Container, Navbar, Header, Linha, TecnologiasContainer, Topo, Main, NoCard } from "./styles";
+import { useEffect, useState } from "react";
 import KenzieLogo from "../../assets/Logo.svg";
 import Button from "../../components/Button/Button";
 import { useHistory } from "react-router-dom";
+import { BiMessageX } from "react-icons/bi";
 import Card from "../../components/Card/Card";
 import ModalCadastro from "../../components/Modal/Modal";
 import ModalAtualizar from "../../components/ModalAtualizar/ModalAtualizar";
+import { API } from "../../services/api";
+import { toast } from "react-toastify";
 
 export default function Home({ authenticated, setAuthenticated }) {
-
   const [modalStatusCadastro, setModalStatusCadastro] = useState(false);
   const [modalStatusAtualizar, setModalStatusAtualizar] = useState(false);
-
+  const [materia, setMateria] = useState([]);
+  const [materiaId, setMateriaId] = useState("");
+  const [nomeMateria, setNomeMateria] = useState("");
+  
   const [usuario] = useState(
     JSON.parse(localStorage.getItem("@KenzieHub:user")) || ""
+  );
+
+  const [token] = useState(
+    JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
 
   const history = useHistory();
@@ -25,11 +34,39 @@ export default function Home({ authenticated, setAuthenticated }) {
     return history.push("/");
   }
 
+  function loadMateria() {
+    API.get(`/users/${usuario.id}`).then((response) => {
+      setMateria(response.data.techs);
+    });
+  }
+
+  useEffect(() => {
+    loadMateria();
+  });
+
+  const pegarInfo = (id,nome) => {
+    setModalStatusAtualizar(true);
+    setNomeMateria(nome)
+    setMateriaId(id);
+  };
+
+  const excluirMateria = () => {
+    API.delete(`/users/techs/${materiaId}`,    
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        setModalStatusAtualizar(false)
+        toast.success('Tecnologia excluida com sucesso')
+      })
+      .catch((err) => {
+        toast.error('Error ao excluir tecnologia');
+      });
+  };
+
   if (!authenticated) {
     return <Redirect to="/home" />;
   }
-
-
 
   return (
     <Container>
@@ -57,21 +94,37 @@ export default function Home({ authenticated, setAuthenticated }) {
       </TecnologiasContainer>
 
       <Main>
-        {[
-          { title: "React", status: "Iniciante" },
-          { title: "React", status: "Iniciante" },
-          { title: "React", status: "Iniciante" },
-        ].map((tec, index) => (
-          <Card key={index} title={tec.title} status={tec.status} onClick={()=>setModalStatusAtualizar(true)}/>
-        ))}
+        {materia.length === 0 ? (
+          <NoCard>
+            <BiMessageX size={20} /> Você ainda não tem materia cadastrada...
+          </NoCard>
+        ) : (
+          materia.map((tec, index) => (
+            <Card
+              key={index}
+              id={tec.id}
+              title={tec.title}
+              status={tec.status}
+              onClick={pegarInfo}
+            />
+          ))
+        )}
       </Main>
 
       {modalStatusCadastro && (
-        <ModalCadastro setModalStatusCadastro={setModalStatusCadastro} />
+        <ModalCadastro
+          setModalStatusCadastro={setModalStatusCadastro}
+          setMateria={setMateria}
+        />
       )}
 
       {modalStatusAtualizar && (
-        <ModalAtualizar setModalStatusAtualizar={setModalStatusAtualizar} />
+        <ModalAtualizar
+          onClick={excluirMateria}
+          nomeMateria={nomeMateria}
+          materiaId={materiaId}
+          setModalStatusAtualizar={setModalStatusAtualizar}
+        />
       )}
     </Container>
   );

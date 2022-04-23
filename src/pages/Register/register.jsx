@@ -49,7 +49,6 @@ export default function Register({ authenticated }) {
     const user = { name, email, password, bio, contact, course_module };
     API.post("/users", user)
       .then((response) => {
-        console.log(response);
 
         toast.success("Sucesso ao criar a conta");
         return history.push("/");

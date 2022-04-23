@@ -44,7 +44,6 @@ export const AnimationContainer = styled.div`
      box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
      border-radius: 8px;
 
-
      h1 {
          margin-bottom: 32px;
          color: var(--gray0);
@@ -84,6 +83,13 @@ export const AnimationContainer = styled.div`
 
      button {
          margin-top: 32px;
+     }
+ }
+
+ @media(max-width: 450px){
+     form {
+         width: 300px;
+         margin: 20px 0;
      }
  }
 `

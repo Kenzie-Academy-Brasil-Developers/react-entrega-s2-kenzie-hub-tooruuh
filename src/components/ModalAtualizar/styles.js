@@ -10,12 +10,12 @@ export const ModalContainer = styled.div`
  top: 0;
  left: 0;
  z-index: 1000;
- background: transparent;
+ background: var(--backgroundModal);
  color: var(--gray0); 
  font-family: "Roboto Mono", monospace;
  transition: 0.5s;
-
 `
+
 export const Content = styled.div`
     background-color: var(--gray3);
     width: 25%;
@@ -23,6 +23,29 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 10px;
+
+    @media(max-width: 1700px){
+        width: 40%;
+    }
+
+    @media(max-width: 1300px){
+        width: 60%;
+    }
+
+    @media(max-width: 900px){
+        width: 60%;
+    }
+
+    @media(max-width: 550px){
+        width: 80%;
+        height: 400px;
+    }
+
+    @media(max-width: 300px){
+        width: 80%;
+        height: 400px;
+    }
 `
 
 export const Topo = styled.div`
@@ -35,11 +58,18 @@ export const Topo = styled.div`
     background-color: var(--gray2);
     height: 20%;
     padding: 0 20px;
+    border-radius: 10px 10px 0px 0px;
 
     h1 {
         font-weight: 700;
         font-size: 20px;
         line-height: 24px;
+    }
+
+    @media(max-width: 500px){
+        h1 {
+            font-size: 16px;
+        }
     }
 
     button{
@@ -49,6 +79,7 @@ export const Topo = styled.div`
         font-size: 20px;
         color: var(--gray1);
         border: none;
+        font-weight: 900;
     }
     button:hover{
         background-color: var(--gray1);
@@ -61,6 +92,10 @@ export const FormContainer = styled.form`
     > div {
         > div {
             margin-bottom: 16px;
+
+            @media(max-width: 500px){
+                margin-top: 16px;
+            }
         }
     }
 

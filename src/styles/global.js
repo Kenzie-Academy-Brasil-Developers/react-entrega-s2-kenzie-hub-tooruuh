@@ -17,6 +17,7 @@ export default createGlobalStyle`
     --red:     #E83F5B;
     --Sucess:  #3FE864;
     --pink:    #FF577F;
+    --backgroundModal: rgb(176 178 181 / 31%);
  }
  
  body{

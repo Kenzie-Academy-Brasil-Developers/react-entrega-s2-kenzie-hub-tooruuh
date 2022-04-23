@@ -11,7 +11,7 @@ import { ModalContainer, Content, Topo, FormContainer } from "./styles";
 import Input from "../Input/input";
 import Select from "../Select/Select";
 
-export default function Modal({ setModalStatusCadastro }) {
+export default function Modal({ setModalStatusCadastro, setMateria }) {
   const [statusCriar] = useState(["Iniciante", "Intermediário", "Avançado"]);
 
   const [token] = useState(

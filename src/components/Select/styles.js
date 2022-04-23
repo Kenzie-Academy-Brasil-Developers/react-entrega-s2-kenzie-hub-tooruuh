@@ -2,6 +2,8 @@ import styled, {css} from 'styled-components'
 
 export const Container = styled.div`
     text-align: start;
+    cursor: pointer;
+
     div {
         span {
             color: var(--red);
@@ -18,6 +20,7 @@ export const SelectContainer = styled.select`
     display: flex;
     transition: 0.4s;
     color: var(--gray1);
+    cursor: pointer;
 
     ${props => props.isErrored && css`
         border-color: var(--red);

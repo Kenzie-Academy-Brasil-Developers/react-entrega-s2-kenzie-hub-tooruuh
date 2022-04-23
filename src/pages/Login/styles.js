@@ -67,6 +67,12 @@ export const AnimationContainer = styled.div`
          color: var(--gray1);
      }
  }
+
+ @media(max-width: 450px){
+     form {
+         width: 300px;
+     }
+ }
 `
 
 export const HeaderLogin = styled.div`
